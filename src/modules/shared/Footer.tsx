@@ -336,7 +336,7 @@ export default function Footer({
             </motion.div>
 
             {/* Big Text Finsyc */}
-            <div className="w-[342px] h-[120px] md:w-[720px] md:h-[250px] lg:w-[1248px] lg:h-[430px] flex flex-col justify-center items-center select-none mx-auto lg:mx-0">
+                        <div className="w-[300px] h-[72px] md:w-[720px] md:h-[250px] lg:w-[1248px] lg:h-[430px] flex flex-col justify-center items-center select-none mx-auto lg:mx-0">
               <motion.h1
                 initial={{ y: "100%" }}
                 whileInView={{ y: 0 }}
@@ -345,15 +345,15 @@ export default function Footer({
                   duration: 1.2,
                   ease: [0.21, 0.45, 0.32, 0.9] as const,
                 }}
-                className="font-onest w-full text-center text-[#042718] text-[116px] md:text-[244px] lg:text-[424px] font-bold leading-none tracking-[-3.8px] md:tracking-[-8px] lg:tracking-[-14px]"
+                className="font-onest w-full text-center text-[#042718] text-[44px] sm:text-[56px] md:text-[244px] lg:text-[424px] font-bold leading-none tracking-[-1.5px] sm:tracking-[-2px] md:tracking-[-8px] lg:tracking-[-14px] overflow-hidden"
               >
                 Finsyc
               </motion.h1>
             </div>
 
             {/* Bottom Text Row */}
-            <motion.div
-              className="w-full lg:w-[1248px] mt-[24px] pt-8 flex flex-col lg:flex-row items-center justify-between gap-6"
+                        <motion.div
+              className="w-full lg:w-[1248px] mt-[24px] pt-8 flex flex-col lg:flex-row items-center lg:justify-between gap-6"
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
@@ -379,15 +379,7 @@ export default function Footer({
               </div>
 
               <div className="text-white font-sans text-[18px] font-normal leading-[28px] opacity-80">
-                Design by{" "}
-                <a
-                  href="https://yscale.studio/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="underline underline-offset-4 hover:opacity-100 hover:font-medium transition-all"
-                >
-                  Yscale.studio
-                </a>
+                Design by @barkatullah
               </div>
             </motion.div>
           </div>

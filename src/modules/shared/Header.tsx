@@ -75,11 +75,12 @@ export default function Header({
               href="/"
               className="flex items-center gap-2 hover:opacity-80 transition-opacity"
             >
-              <Image
+                            <Image
                 src="https://cdn.jiro.build/Amox/All%20SVG/Logo%20with%20Brand%20name.svg"
                 alt="Finsyc Logo"
                 width={160}
                 height={40}
+                loading="eager"
                 unoptimized
                 className="h-7 lg:h-8 w-auto"
               />
