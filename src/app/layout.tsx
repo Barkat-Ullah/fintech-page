@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     title: "Finsyc — AI-Powered Fintech Platform",
     description:
       "Take full control of your finances with AI-powered insights.",
-    url: "https://finsyc.com",
+    url: "",
     siteName: "Finsyc",
     locale: "en_US",
     type: "website",
