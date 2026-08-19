@@ -1,6 +1,7 @@
 "use client";
 
 import Feature from "./components/Featured";
+import HowItWorks from "./components/HowItWorks";
 import Metrics from "./components/Metrix";
 
 const Home = () => {
@@ -8,6 +9,7 @@ const Home = () => {
     <>
       <Metrics />
       <Feature />
+      <HowItWorks />
     </>
   );
 };
