@@ -1,5 +1,6 @@
 "use client";
 
+import BlogSection from "./components/BlogSection";
 import Feature from "./components/Featured";
 import HowItWorks from "./components/HowItWorks";
 import IntegrationSection from "./components/Integration";
@@ -18,6 +19,7 @@ const Home = () => {
       <MetricAndTestimonials />
       <Pricing />
       <IntegrationSection />
+      <BlogSection />
     </>
   );
 };

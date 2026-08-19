@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { PieChart, Zap, Shield, BarChart3, Sparkles } from "lucide-react";
 
@@ -56,10 +57,13 @@ function FeatureCard({
           </video>
         )}
         <div className="relative z-10 w-full h-full flex items-center justify-center">
-          <img
+          <Image
             src={uiSrc}
             alt={title}
-            className="h-full w-full object-contain pointer-events-none select-none transition-all duration-500 group-hover:translate-y-[-10px]"
+            fill
+            sizes="(min-width: 1024px) 50vw, 100vw"
+            unoptimized
+            className="object-contain pointer-events-none select-none transition-all duration-500 group-hover:translate-y-[-10px]"
           />
         </div>
       </div>
@@ -149,6 +153,7 @@ export default function Feature({
       />
 
       <section
+        id="features"
         className={
           "w-full bg-[#FFFFFF] py-20 lg:py-32 overflow-hidden " +
           (className || "")

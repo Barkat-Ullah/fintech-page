@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import { motion, useSpring, useTransform, useInView } from "framer-motion";
 import { Sparkles, ArrowLeft, ArrowRight, Star } from "lucide-react";
 
@@ -432,12 +433,13 @@ export default function MetricAndTestimonials({
                           </div>
 
                           <div className="flex flex-col items-center">
-                            <div className="w-[48px] h-[48px] rounded-full overflow-hidden mb-[12px] border-2 border-white/20">
-                              <img
+                            <div className="relative w-[48px] h-[48px] rounded-full overflow-hidden mb-[12px] border-2 border-white/20">
+                              <Image
                                 src={item.avatar}
                                 alt={item.name}
-                                className="w-full h-full object-cover"
-                                referrerPolicy="no-referrer"
+                                fill
+                                sizes="48px"
+                                className="object-cover"
                               />
                             </div>
 

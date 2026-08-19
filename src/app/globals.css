@@ -31,3 +31,13 @@ body {
 button {
   cursor: pointer;
 }
+
+html {
+  scroll-padding-top: 96px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}

@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import type { Variants } from "framer-motion";
 import {
@@ -327,11 +328,16 @@ export default function HowItWorks({
                         transition={{ duration: 0.5 }}
                         className="relative z-10 w-full flex items-center justify-center p-6 lg:p-0"
                       >
-                        <img
-                          src={activeStep.imgSrc}
-                          alt={activeStep.heading}
-                          className="w-full max-w-[384px] h-auto object-contain drop-shadow-2xl"
-                        />
+                        <div className="relative w-full max-w-[384px] aspect-[4/5]">
+                          <Image
+                            src={activeStep.imgSrc}
+                            alt={activeStep.heading}
+                            fill
+                            sizes="(max-width: 384px) 100vw, 384px"
+                            unoptimized
+                            className="object-contain drop-shadow-2xl"
+                          />
+                        </div>
                       </motion.div>
                     </AnimatePresence>
                   </div>

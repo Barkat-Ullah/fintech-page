@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { ShieldCheck, Star } from "lucide-react";
 
@@ -307,12 +308,13 @@ export default function IntegrationSection({
                         top: isLargeScreen ? topValues[idx] : undefined,
                       }}
                     >
-                      <div className="w-[48px] h-[48px] flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
-                        <img
+                      <div className="relative w-[48px] h-[48px] flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                        <Image
                           src={item.icon}
                           alt={item.name}
-                          className="w-full h-full object-contain"
-                          referrerPolicy="no-referrer"
+                          fill
+                          sizes="48px"
+                          className="object-contain"
                         />
                       </div>
                       <div className="flex flex-col">
@@ -356,11 +358,13 @@ export default function IntegrationSection({
                       className="w-full h-full rounded-full bg-white shadow-[0_12px_48px_rgba(19,142,95,0.12)] flex items-center justify-center relative z-10"
                     >
                       <div className="w-[84px] lg:w-[104px] h-[84px] lg:h-[104px] rounded-full bg-[#FAFFFD] flex items-center justify-center">
-                        <img
+                        <Image
                           src="https://cdn.jiro.build/Amox/All%20SVG/only%20loto-%20Finsyc.svg"
                           alt="Finsyc Logo"
+                          width={64}
+                          height={64}
+                          unoptimized
                           className="w-[50px] lg:w-[64px] h-[50px] lg:h-[64px] object-contain opacity-95"
-                          referrerPolicy="no-referrer"
                         />
                       </div>
                     </motion.div>
@@ -383,12 +387,13 @@ export default function IntegrationSection({
                         top: isLargeScreen ? topValues[idx] : undefined,
                       }}
                     >
-                      <div className="w-[48px] h-[48px] flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
-                        <img
+                      <div className="relative w-[48px] h-[48px] flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform">
+                        <Image
                           src={item.icon}
                           alt={item.name}
-                          className="w-full h-full object-contain"
-                          referrerPolicy="no-referrer"
+                          fill
+                          sizes="48px"
+                          className="object-contain"
                         />
                       </div>
                       <div className="flex flex-col">

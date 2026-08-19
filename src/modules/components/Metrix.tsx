@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import Image from "next/image";
 import { motion, animate } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 
@@ -97,6 +98,7 @@ export default function Metrics({
   return (
     <>
       <section
+        id="about"
         className={
           "w-full bg-[#F6FDFF] py-20 lg:py-32 flex justify-center " +
           (className || "")
@@ -170,11 +172,14 @@ export default function Metrics({
                 bgColor="#D2DDEA"
                 brandName="Lumassa"
                 logo={
-                  <img
+                  <Image
                     src="https://cdn.jiro.build/Amox/All%20SVG/Lumassa.svg"
                     alt="Lumassa"
+                    width={0}
+                    height={0}
+                    sizes="100vw"
+                    unoptimized
                     className="h-[36px] w-auto"
-                    referrerPolicy="no-referrer"
                   />
                 }
                 description="Advanced infrastructure to automate transactions, streamline operations, and scale your financial services with confidence."
@@ -186,11 +191,14 @@ export default function Metrics({
                 bgColor="#EBE3D2"
                 brandName="Catalyst"
                 logo={
-                  <img
+                  <Image
                     src="https://cdn.jiro.build/Amox/All%20SVG/Catalyst.svg"
                     alt="Catalyst"
+                    width={0}
+                    height={0}
+                    sizes="100vw"
+                    unoptimized
                     className="h-[36px] w-auto"
-                    referrerPolicy="no-referrer"
                   />
                 }
                 description="Real-time payment processing, intelligent routing, and seamless integrations to accelerate your business growth."
@@ -202,11 +210,14 @@ export default function Metrics({
                 bgColor="#D4E5CD"
                 brandName="Naxus"
                 logo={
-                  <img
+                  <Image
                     src="https://cdn.jiro.build/Amox/All%20SVG/Naxus.svg"
                     alt="Naxus"
+                    width={0}
+                    height={0}
+                    sizes="100vw"
+                    unoptimized
                     className="h-[36px] w-auto"
-                    referrerPolicy="no-referrer"
                   />
                 }
                 description="Enterprise-grade security, risk management, and compliance tools to protect your customers and your brand."

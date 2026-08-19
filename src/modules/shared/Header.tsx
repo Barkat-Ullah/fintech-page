@@ -3,8 +3,18 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUpRight, Sparkles, Menu, X } from "lucide-react";
+import { cn } from "@/lib/utils";
+
+const navItems = [
+  { label: "Home", href: "/" },
+  { label: "Features", href: "#features" },
+  { label: "Pricing", href: "#pricing" },
+  { label: "About", href: "#about" },
+  { label: "Blogs", href: "#blogs" },
+];
 
 export default function Header({
   className,
@@ -15,10 +25,19 @@ export default function Header({
   const [isCTAHovered, setIsCTAHovered] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const timer = setTimeout(() => setIsMounted(true), 0);
     return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    const handleScroll = () => setIsScrolled(window.scrollY > 0);
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   useEffect(() => {
@@ -32,50 +51,31 @@ export default function Header({
     };
   }, [isMobileMenuOpen]);
 
-  const navItems = ["Home", "Features", "Pricing", "About", "Blogs"];
+  const isActive = (href: string) => (href === "/" ? pathname === "/" : false);
 
   return (
     <>
-      <motion.section
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1, ease: "easeOut" as const }}
-        className={
-          "relative w-full overflow-hidden min-h-[800px] lg:min-h-[900px] " +
-          (className || "")
-        }
+      {/* Sticky Navbar */}
+      <header
+        className={cn(
+          "fixed inset-x-0 top-0 z-50 h-[72px] lg:h-[80px] transition-all duration-300",
+          isScrolled
+            ? "bg-white/90 backdrop-blur-md shadow-[0_4px_20px_rgba(4,39,24,0.08)]"
+            : "bg-transparent",
+        )}
       >
-        {/* Background Video */}
-        <div className="absolute inset-0 z-0">
-          {isMounted && (
-            <video
-              autoPlay
-              loop
-              muted
-              playsInline
-              className="w-full h-full object-cover"
-            >
-              <source
-                src="https://cdn.jiro.build/Amox/All%20Images/P01-Header-01-BG.mp4"
-                type="video/mp4"
-              />
-            </video>
-          )}
-        </div>
-
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 lg:pt-8 pb-12">
-          {/* Navigation */}
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full">
           <motion.nav
             initial={{ y: -20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.2, duration: 0.6, ease: "easeOut" as const }}
-            className="flex items-center justify-between"
+            className="flex items-center justify-between h-full"
           >
-                        <Link
+            <Link
               href="/"
               className="flex items-center gap-2 hover:opacity-80 transition-opacity"
             >
-                            <Image
+              <Image
                 src="https://cdn.jiro.build/Amox/All%20SVG/Logo%20with%20Brand%20name.svg"
                 alt="Finsyc Logo"
                 width={160}
@@ -88,18 +88,18 @@ export default function Header({
 
             {/* Desktop Menu */}
             <ul className="hidden lg:flex items-center gap-8">
-              {navItems.map((item: string) => (
-                                <li key={item}>
+              {navItems.map((item) => (
+                <li key={item.label}>
                   <Link
-                    href={item === "Home" ? "/" : `#${item.toLowerCase()}`}
+                    href={item.href}
                     className={
                       "font-inter text-base leading-6 tracking-[-0.3px] text-[#042718] transition-all " +
-                      (item === "Home"
+                      (isActive(item.href)
                         ? "font-bold opacity-100"
                         : "font-normal opacity-80 hover:opacity-100 hover:font-bold")
                     }
                   >
-                    {item}
+                    {item.label}
                   </Link>
                 </li>
               ))}
@@ -147,75 +147,111 @@ export default function Header({
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                 className="lg:hidden p-2 text-[#042718] bg-white/20 backdrop-blur-md rounded-full"
+                aria-label="Toggle navigation menu"
               >
                 {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
               </button>
             </div>
           </motion.nav>
+        </div>
+      </header>
 
-          {/* Mobile Navigation Drawer */}
-          <AnimatePresence>
-            {isMobileMenuOpen && (
-              <motion.div
-                key="mobile-menu"
-                initial={{ x: "100%" }}
-                animate={{ x: 0 }}
-                exit={{ x: "100%" }}
-                transition={{
-                  type: "spring" as const,
-                  damping: 25,
-                  stiffness: 200,
-                }}
-                className="fixed inset-0 z-[100] lg:hidden bg-white px-6 py-8 flex flex-col gap-8"
+      {/* Mobile Navigation Drawer */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            key="mobile-menu"
+            initial={{ x: "100%" }}
+            animate={{ x: 0 }}
+            exit={{ x: "100%" }}
+            transition={{
+              type: "spring" as const,
+              damping: 25,
+              stiffness: 200,
+            }}
+            className="fixed inset-0 z-[100] lg:hidden bg-white px-6 py-8 flex flex-col gap-8"
+          >
+            <div className="flex items-center justify-between">
+              <Image
+                src="https://cdn.jiro.build/Amox/All%20SVG/Logo%20with%20Brand%20name.svg"
+                alt="Finsyc Logo"
+                width={160}
+                height={40}
+                unoptimized
+                className="h-8 w-auto"
+              />
+              <button
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="p-2 text-[#042718] bg-[#042718]/5 rounded-full"
+                aria-label="Close menu"
               >
-                <div className="flex items-center justify-between">
-                                    <Image
-                    src="https://cdn.jiro.build/Amox/All%20SVG/Logo%20with%20Brand%20name.svg"
-                    alt="Finsyc Logo"
-                    width={160}
-                    height={40}
-                    unoptimized
-                    className="h-8 w-auto"
-                  />
-                  <button
+                <X size={24} />
+              </button>
+            </div>
+
+            <ul className="flex flex-col gap-6">
+              {navItems.map((item, idx) => (
+                <motion.li
+                  key={item.label}
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{
+                    delay: 0.1 * idx,
+                    ease: "easeOut" as const,
+                  }}
+                >
+                  <Link
+                    href={item.href}
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="p-2 text-[#042718] bg-[#042718]/5 rounded-full"
+                    className={
+                      "font-inter text-2xl font-semibold text-[#042718] " +
+                      (isActive(item.href) ? "underline underline-offset-4" : "")
+                    }
                   >
-                    <X size={24} />
-                  </button>
-                </div>
+                    {item.label}
+                  </Link>
+                </motion.li>
+              ))}
+            </ul>
 
-                <ul className="flex flex-col gap-6">
-                  {navItems.map((item: string, idx: number) => (
-                    <motion.li
-                      key={item}
-                      initial={{ opacity: 0, x: 20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{
-                        delay: 0.1 * idx,
-                        ease: "easeOut" as const,
-                      }}
-                    >
-                                            <Link
-                        href={item === "Home" ? "/" : `#${item.toLowerCase()}`}
-                        onClick={() => setIsMobileMenuOpen(false)}
-                        className="font-inter text-2xl font-semibold text-[#042718]"
-                      >
-                        {item}
-                      </Link>
-                    </motion.li>
-                  ))}
-                </ul>
+            <div className="mt-auto">
+              <button className="w-full py-4 rounded-full bg-[#042718] text-white font-inter font-medium text-lg">
+                Get Started
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
-                <div className="mt-auto">
-                  <button className="w-full py-4 rounded-full bg-[#042718] text-white font-inter font-medium text-lg">
-                    Get Started
-                  </button>
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
+      {/* Hero Section */}
+      <motion.section
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1, ease: "easeOut" as const }}
+        className={
+          "relative w-full overflow-hidden min-h-[800px] lg:min-h-[900px] " +
+          (className || "")
+        }
+      >
+        {/* Background Video */}
+        <div className="absolute inset-0 z-0">
+          {isMounted && (
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="w-full h-full object-cover"
+            >
+              <source
+                src="https://cdn.jiro.build/Amox/All%20Images/P01-Header-01-BG.mp4"
+                type="video/mp4"
+              />
+            </video>
+          )}
+        </div>
 
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 lg:pt-28 pb-12">
           {/* Hero Content */}
           <div className="flex flex-col items-center mt-12 lg:mt-[80px]">
             {/* Rating Box */}
@@ -342,7 +378,7 @@ export default function Header({
                   }}
                   className="flex items-center gap-12 sm:gap-16 lg:gap-24 w-fit"
                 >
-                                    {[...Array(2)].map((_: unknown, i: number) => (
+                  {[...Array(2)].map((_: unknown, i: number) => (
                     <React.Fragment key={i}>
                       <Image
                         src="https://cdn.jiro.build/Amox/All%20SVG/Horizon.svg"
@@ -395,3 +431,4 @@ export default function Header({
     </>
   );
 }
+
